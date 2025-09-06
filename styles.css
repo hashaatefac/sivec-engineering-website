@@ -130,7 +130,9 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, #2c5e3f 0%, #4a9d6f 50%, #2196f3 100%);
+    background: 
+        linear-gradient(135deg, rgba(44, 94, 63, 0.8) 0%, rgba(74, 157, 111, 0.8) 50%, rgba(33, 150, 243, 0.8) 100%),
+        url('images/hero-bg.jpg') center/cover no-repeat;
     z-index: -2;
 }
 

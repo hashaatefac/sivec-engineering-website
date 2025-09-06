@@ -56,22 +56,36 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
         
-        // Skip if href is just '#' or empty
+        // Skip if href is invalid or empty
         if (!href || href === '#' || href.length <= 1) {
+            console.log('Skipping invalid href:', href);
+            return;
+        }
+        
+        // Validate that href starts with # and contains valid selector characters
+        if (!href.startsWith('#') || !/^#[a-zA-Z][\w-]*$/.test(href)) {
+            console.log('Invalid selector format:', href);
             return;
         }
         
         e.preventDefault();
-        const target = document.querySelector(href);
-        if (target) {
-            const headerOffset = 80;
-            const elementPosition = target.offsetTop;
-            const offsetPosition = elementPosition - headerOffset;
+        
+        try {
+            const target = document.querySelector(href);
+            if (target) {
+                const headerOffset = 80;
+                const elementPosition = target.offsetTop;
+                const offsetPosition = elementPosition - headerOffset;
 
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            } else {
+                console.log('Target element not found for:', href);
+            }
+        } catch (error) {
+            console.error('Error with selector:', href, error);
         }
     });
 });
