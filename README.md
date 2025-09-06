@@ -13,6 +13,7 @@ This website showcases SIVEC Engineering's comprehensive services in environment
 - **Fully Responsive**: Optimized for desktop, tablet, and mobile devices
 - **Smooth Animations**: Engaging scroll animations and hover effects
 - **Interactive Elements**: Dynamic navigation, service cards, and contact forms
+- **AI Chatbot**: Intelligent virtual assistant for instant customer support
 
 ### Sections
 1. **Hero Section**: Eye-catching banner with company tagline and call-to-action
@@ -45,6 +46,11 @@ SIVEC Engineering/
 ├── index.html          # Main website file
 ├── styles.css          # All CSS styles and responsive design
 ├── script.js           # JavaScript functionality
+├── chatbot.js          # AI chatbot functionality
+├── chatbot.css         # Chatbot styling
+├── netlify.toml        # Netlify deployment configuration
+├── .gitignore          # Git ignore file
+├── DEPLOYMENT.md       # Deployment instructions
 ├── images/             # Image assets folder
 │   ├── logo.png        # Company logo
 │   ├── logo-white.png  # White version of logo for footer
@@ -64,6 +70,14 @@ SIVEC Engineering/
 - Form validation
 - Success/error notifications
 - Professional styling
+
+### AI Chatbot Assistant
+- Intelligent responses about company services
+- Real-time chat interface
+- Mobile-responsive design
+- Quick action buttons
+- Professional branding
+- Knowledge base covering all services
 
 ### Performance Optimizations
 - Optimized CSS and JavaScript
@@ -125,14 +139,41 @@ SIVEC Engineering/
 - Service cards can be added/removed by duplicating the structure
 - Contact form can be connected to a backend service
 
+## Deployment
+
+The website is configured for easy deployment:
+
+### GitHub Repository
+- Version controlled with Git
+- Ready for collaborative development
+- Automated deployment triggers
+
+### Netlify Hosting
+- Optimized for static sites
+- Global CDN distribution
+- Automatic SSL certificates
+- Custom domain support
+- Form handling capabilities
+
+### AI Chatbot
+- Rule-based intelligent responses
+- Expandable knowledge base
+- Can be enhanced with external AI APIs
+- Mobile-optimized interface
+
+See `DEPLOYMENT.md` for detailed deployment instructions.
+
 ## Future Enhancements
 
+- Integration with external AI APIs (OpenAI, Dialogflow)
 - Content Management System integration
 - Blog/News section
 - Project portfolio gallery
 - Multi-language support
 - Online quote system
 - Customer portal
+- Advanced chatbot analytics
+- Live chat handover to human agents
 
 ## Contact Information
 
