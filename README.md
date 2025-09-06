@@ -178,9 +178,9 @@ See `DEPLOYMENT.md` for detailed deployment instructions.
 ## Contact Information
 
 **SIVEC Engineering (Pvt) Ltd**
-- Address: No 435/21/A Maharagama Road, Hokandara
-- Phone: +94 76 89 13 909
-- Email: info@sivecengineering.com
+- Address: No.29/01, Heenpanwila, Weliweriya
+- Phone: +94 75 694 0358
+- Email: sivecengineering@gmail.com
 - Website: www.sivecengineering.com
 
 ## License
