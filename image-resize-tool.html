@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIVEC Engineering - Image Resize Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #4CAF50, #2196F3);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .upload-area {
+            border: 2px dashed #4CAF50;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            background: #f8f9fa;
+            border-color: #2196F3;
+        }
+        
+        .upload-area.dragover {
+            background: #e8f5e8;
+            border-color: #4CAF50;
+        }
+        
+        #fileInput {
+            display: none;
+        }
+        
+        .controls {
+            display: none;
+            margin-top: 20px;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        input[type="range"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        input[type="range"] {
+            height: 40px;
+        }
+        
+        .size-display {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .preview-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        #preview {
+            max-width: 100%;
+            max-height: 300px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, #4CAF50, #2196F3);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .download-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .instructions {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2196F3;
+        }
+        
+        .instructions h3 {
+            color: #2196F3;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ul {
+            margin-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 5px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 SIVEC Image Resize Tool</h1>
+        
+        <div class="instructions">
+            <h3>How to Use:</h3>
+            <ul>
+                <li>Click the upload area or drag & drop your image</li>
+                <li>Adjust the size using the slider or input fields</li>
+                <li>Preview your resized image</li>
+                <li>Download the resized image</li>
+                <li>Replace the old image in your website's images folder</li>
+            </ul>
+        </div>
+        
+        <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+            <div>
+                <h3>📤 Upload Image to Resize</h3>
+                <p>Click here or drag and drop your image file</p>
+                <small>Supports: JPG, PNG, GIF, WebP</small>
+            </div>
+        </div>
+        
+        <input type="file" id="fileInput" accept="image/*">
+        
+        <div class="controls" id="controls">
+            <div class="control-group">
+                <label for="scaleSlider">Resize Scale (%):</label>
+                <input type="range" id="scaleSlider" min="10" max="200" value="100" step="5">
+                <div class="size-display">
+                    <span>10%</span>
+                    <span id="scaleValue">100%</span>
+                    <span>200%</span>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label for="widthInput">Width (pixels):</label>
+                <input type="number" id="widthInput" min="50" max="2000" step="1">
+            </div>
+            
+            <div class="control-group">
+                <label for="heightInput">Height (pixels):</label>
+                <input type="number" id="heightInput" min="50" max="2000" step="1">
+            </div>
+            
+            <div class="control-group">
+                <label>
+                    <input type="checkbox" id="maintainRatio" checked> Maintain aspect ratio
+                </label>
+            </div>
+        </div>
+        
+        <div class="preview-container">
+            <img id="preview" style="display: none;">
+        </div>
+        
+        <button class="download-btn" id="downloadBtn" disabled>
+            📥 Download Resized Image
+        </button>
+    </div>
+
+    <script>
+        let originalImage = null;
+        let originalWidth = 0;
+        let originalHeight = 0;
+        let aspectRatio = 1;
+
+        const fileInput = document.getElementById('fileInput');
+        const uploadArea = document.querySelector('.upload-area');
+        const controls = document.getElementById('controls');
+        const preview = document.getElementById('preview');
+        const scaleSlider = document.getElementById('scaleSlider');
+        const scaleValue = document.getElementById('scaleValue');
+        const widthInput = document.getElementById('widthInput');
+        const heightInput = document.getElementById('heightInput');
+        const maintainRatio = document.getElementById('maintainRatio');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        // Drag and drop functionality
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            if (!file.type.startsWith('image/')) {
+                alert('Please select an image file.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                originalImage = new Image();
+                originalImage.onload = () => {
+                    originalWidth = originalImage.width;
+                    originalHeight = originalImage.height;
+                    aspectRatio = originalWidth / originalHeight;
+
+                    widthInput.value = originalWidth;
+                    heightInput.value = originalHeight;
+                    
+                    controls.style.display = 'block';
+                    updatePreview();
+                };
+                originalImage.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        scaleSlider.addEventListener('input', () => {
+            const scale = scaleSlider.value / 100;
+            scaleValue.textContent = scaleSlider.value + '%';
+            
+            widthInput.value = Math.round(originalWidth * scale);
+            heightInput.value = Math.round(originalHeight * scale);
+            
+            updatePreview();
+        });
+
+        widthInput.addEventListener('input', () => {
+            if (maintainRatio.checked) {
+                heightInput.value = Math.round(widthInput.value / aspectRatio);
+            }
+            updateScaleSlider();
+            updatePreview();
+        });
+
+        heightInput.addEventListener('input', () => {
+            if (maintainRatio.checked) {
+                widthInput.value = Math.round(heightInput.value * aspectRatio);
+            }
+            updateScaleSlider();
+            updatePreview();
+        });
+
+        maintainRatio.addEventListener('change', () => {
+            if (maintainRatio.checked) {
+                heightInput.value = Math.round(widthInput.value / aspectRatio);
+                updatePreview();
+            }
+        });
+
+        function updateScaleSlider() {
+            const scale = (widthInput.value / originalWidth) * 100;
+            scaleSlider.value = Math.round(scale);
+            scaleValue.textContent = Math.round(scale) + '%';
+        }
+
+        function updatePreview() {
+            if (!originalImage) return;
+
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            const newWidth = parseInt(widthInput.value);
+            const newHeight = parseInt(heightInput.value);
+            
+            canvas.width = newWidth;
+            canvas.height = newHeight;
+            
+            ctx.drawImage(originalImage, 0, 0, newWidth, newHeight);
+            
+            preview.src = canvas.toDataURL('image/png', 0.9);
+            preview.style.display = 'block';
+            downloadBtn.disabled = false;
+        }
+
+        downloadBtn.addEventListener('click', () => {
+            if (!originalImage) return;
+
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            const newWidth = parseInt(widthInput.value);
+            const newHeight = parseInt(heightInput.value);
+            
+            canvas.width = newWidth;
+            canvas.height = newHeight;
+            
+            ctx.drawImage(originalImage, 0, 0, newWidth, newHeight);
+            
+            canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `sivec-logo-${newWidth}x${newHeight}.png`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 'image/png', 0.9);
+        });
+    </script>
+</body>
+</html>
