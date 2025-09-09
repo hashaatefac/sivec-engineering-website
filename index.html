@@ -34,8 +34,32 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-background">
+        <div class="hero-slideshow">
+            <div class="slide active" style="background-image: url('images/slide-1.jpg')"></div>
+            <div class="slide" style="background-image: url('images/slide-2.jpg')"></div>
+            <div class="slide" style="background-image: url('images/slide-3.jpg')"></div>
+            <div class="slide" style="background-image: url('images/slide-4.jpg')"></div>
+            <div class="slide" style="background-image: url('images/slide-5.jpg')"></div>
             <div class="hero-overlay"></div>
+        </div>
+        
+        <!-- Slideshow Navigation Dots -->
+        <div class="slideshow-nav">
+            <span class="nav-dot active" data-slide="0"></span>
+            <span class="nav-dot" data-slide="1"></span>
+            <span class="nav-dot" data-slide="2"></span>
+            <span class="nav-dot" data-slide="3"></span>
+            <span class="nav-dot" data-slide="4"></span>
+        </div>
+        
+        <!-- Slideshow Controls -->
+        <div class="slideshow-controls">
+            <button class="slide-btn prev-btn" id="prevSlide">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="slide-btn next-btn" id="nextSlide">
+                <i class="fas fa-chevron-right"></i>
+            </button>
         </div>
         <div class="hero-content">
             <div class="container">
@@ -423,6 +447,7 @@
         </div>
     </footer>
 
+    <script src="slideshow.js"></script>
     <script src="debug-script.js"></script>
     <script src="script.js?v=2.0"></script>
     <script src="chatbot.js?v=2.0"></script>
