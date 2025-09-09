@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Slideshow Images - SIVEC Engineering</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #4CAF50, #2196F3);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c5e3f;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+        
+        .step {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .step h3 {
+            color: #2c5e3f;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .step-number {
+            background: #4CAF50;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .upload-area {
+            border: 2px dashed #4CAF50;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8fff8;
+        }
+        
+        .upload-area:hover {
+            background: #e8f5e8;
+            border-color: #2c5e3f;
+        }
+        
+        .upload-area.dragover {
+            background: #e8f5e8;
+            border-color: #4CAF50;
+            transform: scale(1.02);
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+        
+        #fileInput {
+            display: none;
+        }
+        
+        .file-list {
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .file-thumbnail {
+            width: 50px;
+            height: 50px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        
+        .file-details {
+            flex: 1;
+        }
+        
+        .file-name {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .file-size {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .remove-btn {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .remove-btn:hover {
+            background: #d32f2f;
+        }
+        
+        .generate-btn {
+            background: linear-gradient(135deg, #4CAF50, #2196F3);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .generate-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .code-output {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        
+        .copy-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        .copy-btn:hover {
+            background: #1976D2;
+        }
+        
+        .instructions {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #2196F3;
+            margin-top: 20px;
+        }
+        
+        .instructions h4 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 5px;
+            color: #424242;
+        }
+        
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .preview-item {
+            position: relative;
+            height: 100px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .preview-item:hover {
+            transform: scale(1.05);
+            border-color: #4CAF50;
+        }
+        
+        .preview-item.selected {
+            border-color: #2196F3;
+            transform: scale(1.05);
+        }
+        
+        .preview-label {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            right: 5px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            text-align: center;
+        }
+        
+        .current-slides {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ff9800;
+        }
+        
+        .current-slides h4 {
+            color: #f57c00;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Add Background Images to Slideshow</h1>
+        
+        <div class="current-slides">
+            <h4>📊 Current Status</h4>
+            <p><strong>Current slides:</strong> 5 images (slide-1.jpg to slide-5.jpg)</p>
+            <p><strong>Next slide number:</strong> slide-6.jpg</p>
+        </div>
+        
+        <div class="step">
+            <h3><span class="step-number">1</span>Upload New Images</h3>
+            <p>Select or drag & drop images for your slideshow background. Recommended size: 1920x1080px or larger.</p>
+            
+            <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                <div class="upload-icon">📤</div>
+                <h3>Click here or drag images</h3>
+                <p>Supports: JPG, PNG, WebP</p>
+                <small>Multiple files supported</small>
+            </div>
+            
+            <input type="file" id="fileInput" accept="image/*" multiple>
+            <div class="file-list" id="fileList"></div>
+        </div>
+        
+        <div class="step">
+            <h3><span class="step-number">2</span>Or Use Existing Images</h3>
+            <p>Select from your current images to add to the slideshow:</p>
+            <div class="preview-grid" id="existingImages"></div>
+        </div>
+        
+        <div class="step">
+            <h3><span class="step-number">3</span>Generate Code</h3>
+            <button class="generate-btn" id="generateBtn" onclick="generateSlideCode()">
+                🚀 Generate Slideshow Code
+            </button>
+            
+            <div class="code-output" id="codeOutput" style="display: none;"></div>
+            <button class="copy-btn" id="copyBtn" style="display: none;" onclick="copyCode()">
+                📋 Copy Code
+            </button>
+        </div>
+        
+        <div class="instructions">
+            <h4>📋 How to Apply Changes:</h4>
+            <ol>
+                <li>Upload or select images above</li>
+                <li>Click "Generate Slideshow Code"</li>
+                <li>Copy the generated code</li>
+                <li>I'll apply it to your website automatically</li>
+                <li>Your slideshow will have more background images!</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        let selectedFiles = [];
+        let selectedExisting = [];
+        let existingImages = [
+            'Generated Image September 06, 2025 - 9_32PM.jpeg',
+            'Generated Image September 06, 2025 - 9_36PM.jpeg',
+            'SIVEC Engineering Logo - Water Purification Icon.png',
+            'SIVEC Engineering Logo with Water Droplet Icon.png',
+            'WhatsApp Image 2025-09-06 at 21.28.54.jpeg',
+            'about-us-jpg.jpeg',
+            'hero-bg.jpg'
+        ];
+
+        // Initialize existing images
+        function initExistingImages() {
+            const grid = document.getElementById('existingImages');
+            existingImages.forEach((img, index) => {
+                const div = document.createElement('div');
+                div.className = 'preview-item';
+                div.style.backgroundImage = `url('images/${img}')`;
+                div.innerHTML = `<div class="preview-label">${img.split('.')[0]}</div>`;
+                div.onclick = () => toggleExistingImage(img, div);
+                grid.appendChild(div);
+            });
+        }
+
+        // File upload handling
+        const fileInput = document.getElementById('fileInput');
+        const uploadArea = document.querySelector('.upload-area');
+        const fileList = document.getElementById('fileList');
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    selectedFiles.push(file);
+                    addFileToList(file);
+                }
+            });
+        }
+
+        function addFileToList(file) {
+            const div = document.createElement('div');
+            div.className = 'file-item';
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                div.innerHTML = `
+                    <div class="file-info">
+                        <div class="file-thumbnail" style="background-image: url('${e.target.result}')"></div>
+                        <div class="file-details">
+                            <div class="file-name">${file.name}</div>
+                            <div class="file-size">${(file.size / 1024 / 1024).toFixed(1)} MB</div>
+                        </div>
+                    </div>
+                    <button class="remove-btn" onclick="removeFile('${file.name}', this)">Remove</button>
+                `;
+            };
+            reader.readAsDataURL(file);
+            
+            fileList.appendChild(div);
+        }
+
+        function removeFile(fileName, button) {
+            selectedFiles = selectedFiles.filter(f => f.name !== fileName);
+            button.parentElement.remove();
+        }
+
+        function toggleExistingImage(imageName, element) {
+            if (selectedExisting.includes(imageName)) {
+                selectedExisting = selectedExisting.filter(img => img !== imageName);
+                element.classList.remove('selected');
+            } else {
+                selectedExisting.push(imageName);
+                element.classList.add('selected');
+            }
+        }
+
+        function generateSlideCode() {
+            const totalNewSlides = selectedFiles.length + selectedExisting.length;
+            if (totalNewSlides === 0) {
+                alert('Please select or upload at least one image!');
+                return;
+            }
+
+            let htmlCode = '\n<!-- New Slideshow Images -->\n';
+            let slideNumber = 6; // Start from slide-6
+
+            // Process uploaded files
+            selectedFiles.forEach(file => {
+                htmlCode += `<div class="slide" style="background-image: url('images/slide-${slideNumber}.jpg')"></div>\n`;
+                slideNumber++;
+            });
+
+            // Process existing images
+            selectedExisting.forEach(img => {
+                htmlCode += `<div class="slide" style="background-image: url('images/${img}')"></div>\n`;
+                slideNumber++;
+            });
+
+            // Generate navigation dots
+            let dotsCode = '\n<!-- New Navigation Dots -->\n';
+            for (let i = 5; i < slideNumber - 1; i++) {
+                dotsCode += `<span class="nav-dot" data-slide="${i}"></span>\n`;
+            }
+
+            const fullCode = `${htmlCode}\n${dotsCode}\n
+<!-- Instructions for implementation -->
+<!--
+1. Add the slide divs to your HTML after the existing slides
+2. Add the navigation dots after the existing dots
+3. Copy uploaded files as slide-6.jpg, slide-7.jpg, etc.
+4. The JavaScript will automatically detect and include them
+-->`;
+
+            document.getElementById('codeOutput').textContent = fullCode;
+            document.getElementById('codeOutput').style.display = 'block';
+            document.getElementById('copyBtn').style.display = 'inline-block';
+
+            // Show file copying instructions
+            if (selectedFiles.length > 0) {
+                const copyInstructions = `\n\n// File copying needed:\n`;
+                let fileInstructions = copyInstructions;
+                selectedFiles.forEach((file, index) => {
+                    fileInstructions += `// Copy "${file.name}" as "slide-${6 + index}.jpg"\n`;
+                });
+                document.getElementById('codeOutput').textContent += fileInstructions;
+            }
+        }
+
+        function copyCode() {
+            const code = document.getElementById('codeOutput').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = document.getElementById('copyBtn');
+                btn.textContent = '✅ Copied!';
+                setTimeout(() => {
+                    btn.textContent = '📋 Copy Code';
+                }, 2000);
+            });
+        }
+
+        // Initialize
+        initExistingImages();
+    </script>
+</body>
+</html>
