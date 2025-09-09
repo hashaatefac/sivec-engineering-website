@@ -147,11 +147,26 @@ body {
     opacity: 0;
     transition: all 1s ease-in-out;
     transform: translateX(100%);
+    z-index: 1;
 }
 
 .slide.active {
     opacity: 1;
     transform: translateX(0);
+    z-index: 2;
+}
+
+.slide:first-child,
+.slide.active {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+}
+
+/* Fallback: Show first slide immediately */
+.hero-slideshow .slide:first-child {
+    opacity: 1;
+    transform: translateX(0);
+    z-index: 2;
 }
 
 .slide.prev {
