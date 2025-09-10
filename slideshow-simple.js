@@ -78,28 +78,26 @@
         
         console.log(`🎯 Going to slide ${index + 1}`);
         
-        // Hide current slide
-        slides[currentSlide].classList.remove('active');
-        slides[currentSlide].style.opacity = '0';
+        // Hide all slides first
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active');
+            slide.style.opacity = '0';
+            slide.style.zIndex = '1';
+            if (i !== index) {
+                slide.style.transform = 'translateX(100%)';
+            }
+        });
         
-        // Determine slide direction
-        if (index > currentSlide) {
-            slides[currentSlide].style.transform = 'translateX(-100%)';
-            slides[index].style.transform = 'translateX(100%)';
-        } else {
-            slides[currentSlide].style.transform = 'translateX(100%)';
-            slides[index].style.transform = 'translateX(-100%)';
-        }
+        // Show new slide
+        setTimeout(() => {
+            slides[index].classList.add('active');
+            slides[index].style.opacity = '1';
+            slides[index].style.transform = 'translateX(0)';
+            slides[index].style.zIndex = '3';
+        }, 100);
         
         // Update current slide
         currentSlide = index;
-        
-        // Show new slide with delay for smooth transition
-        setTimeout(() => {
-            slides[currentSlide].classList.add('active');
-            slides[currentSlide].style.opacity = '1';
-            slides[currentSlide].style.transform = 'translateX(0)';
-        }, 50);
         
         // Update navigation dots
         navDots.forEach((dot, i) => {

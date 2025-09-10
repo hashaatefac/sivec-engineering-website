@@ -158,35 +158,27 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.7);
     z-index: 1;
 }
 
 .slide.active {
-    opacity: 1;
-    transform: translateX(0);
-    z-index: 2;
-}
-
-.slide:first-child,
-.slide.active {
     opacity: 1 !important;
     transform: translateX(0) !important;
+    z-index: 3 !important;
 }
 
-/* Fallback: Show first slide immediately */
-.hero-slideshow .slide:first-child {
-    opacity: 1;
-    transform: translateX(0);
-    z-index: 2;
+.slide:not(.active) {
+    opacity: 0 !important;
+    z-index: 1 !important;
 }
 
 .slide.prev {
-    transform: translateX(-100%);
+    transform: translateX(-100%) !important;
 }
 
 .slide.next {
-    transform: translateX(100%);
+    transform: translateX(100%) !important;
 }
 
 .hero-background::before {
