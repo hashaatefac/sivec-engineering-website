@@ -195,7 +195,7 @@ class SIVECChatbot {
             
             // Contact/Quote
             [['quote', 'price', 'cost', 'consultation', 'contact'], 
-             "📞 Get in touch with us for a personalized quote:\n\n• Phone: +94 75 694 0358\n• Email: sivecengineering@gmail.com\n• Address: No.29/01, Heenpanwila, Weliweriya\n\nOur experts will assess your needs and provide the best solution!"],
+             "📞 Get in touch with us for a personalized quote:\n\n• Phone: +94 75 694 0358\n• Email: sivecengineering@gmail.com\n• Address: 29/01, Heenpanwila, Weliweriya, Sri Lanka\n\nOur experts will assess your needs and provide the best solution!"],
             
             // About Company
             [['about', 'company', 'who are you'], 

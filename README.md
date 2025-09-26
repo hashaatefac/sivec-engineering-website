@@ -178,7 +178,7 @@ See `DEPLOYMENT.md` for detailed deployment instructions.
 ## Contact Information
 
 **SIVEC Engineering (Pvt) Ltd**
-- Address: No.29/01, Heenpanwila, Weliweriya
+- Address: 29/01, Heenpanwila, Weliweriya, Sri Lanka
 - Phone: +94 75 694 0358
 - Email: sivecengineering@gmail.com
 - Website: www.sivecengineering.com
