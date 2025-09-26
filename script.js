@@ -322,7 +322,7 @@ function openServiceModal(serviceType) {
 
 // WhatsApp contact functionality
 function openWhatsApp() {
-    const phoneNumber = '+94756940358';
+    const phoneNumber = '+94 75 694 0358';
     const message = 'Hello SIVEC Engineering, I would like to know more about your services.';
     const whatsappURL = `https://wa.me/${phoneNumber.replace('+', '')}?text=${encodeURIComponent(message)}`;
     window.open(whatsappURL, '_blank');
