@@ -172,7 +172,7 @@ class SIVECChatbot {
         }
 
         // Default response if no match found
-        return "Thank you for your question! For specific technical inquiries, I'd recommend contacting our engineering experts directly. You can reach us at +94 75 694 0358 or sivecengineering@gmail.com. Is there anything else about our services I can help you with?";
+        return "Thank you for your question! For specific technical inquiries, I'd recommend contacting our engineering experts directly. You can reach us at +94 75 694 0358 or info@sivecengineering.com. Is there anything else about our services I can help you with?";
     }
 
     getResponseDatabase() {
@@ -195,7 +195,7 @@ class SIVECChatbot {
             
             // Contact/Quote
             [['quote', 'price', 'cost', 'consultation', 'contact'], 
-             "📞 Get in touch with us for a personalized quote:\n\n• Phone: +94 75 694 0358\n• Email: sivecengineering@gmail.com\n• Address: 29/01, Heenpanwila, Weliweriya, Sri Lanka\n\nOur experts will assess your needs and provide the best solution!"],
+             "📞 Get in touch with us for a personalized quote:\n\n• Phone: +94 75 694 0358\n• Email: info@sivecengineering.com\n• Address: 29/01, Heenpanwila, Weliweriya, Sri Lanka\n\nOur experts will assess your needs and provide the best solution!"],
             
             // About Company
             [['about', 'company', 'who are you'], 
